@@ -1,0 +1,106 @@
+.App{
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .Connect{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        button{
+            background: #2B2B2B;
+            color: rgba($color: #f0f0f0, $alpha: 0.75);
+            box-shadow: -3px -3px 7px #3d3d3d, 3px 3px 5px #0f0f0f;
+            border-radius: 5px;
+            padding: 15px 30px;
+            font-size: 1.8rem;
+            cursor: pointer;
+            transition: all 0.5s ease;
+
+            &:hover{
+                background: #3d3d3d;
+                color: rgba($color: #fff, $alpha: 1);
+                box-shadow: -3px -3px 7px #3d3d3d, 3px 3px 5px #0f0f0f;
+            }
+        }
+    }
+
+    .CriminalRecords{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        background: #2B2B2B;
+        border-radius: 5px;
+        box-shadow: -3px -3px 7px #3d3d3d, 3px 3px 5px #0f0f0f;
+        margin: 20px;
+
+        height: 700px;
+        width: 500px;
+        
+        h1{
+            flex: 1;
+            font-size: 2rem;
+            color: rgba($color: #f0f0f0, $alpha: 0.75);
+            text-align: center;
+            margin-bottom: 20px;
+            text-shadow: 0px 0px 5px #000;
+        }
+
+        form{
+            flex: 9;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            border-top: 1px solid rgba($color: #f0f0f0, $alpha: 0.75);
+
+            label{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                gap: 10px;
+                color: rgba($color: #f0f0f0, $alpha: 0.75);
+                font-size: 1.5rem;
+                text-shadow: 0px 0px 5px #000;
+                margin-bottom: 10px;
+
+                input{
+                    width: 100%;
+                    padding: 10px;
+                    border-radius: 5px;
+                    border: none;
+                    background: #3d3d3d;
+                    color: rgba($color: #f0f0f0, $alpha: 0.75);
+                    font-size: 1.5rem;
+                    margin-bottom: 10px;
+                    box-shadow: inset -3px -3px 7px #3d3d3d, inset 3px 3px 5px #0f0f0f;
+                }
+                input[type='file']{
+                    cursor: pointer;
+                }
+                input[type='file']::-webkit-file-upload-button {
+                    display: none;
+                }
+            }
+
+            button{
+                background: #2B2B2B;
+                color: rgba($color: #f0f0f0, $alpha: 0.75);
+                box-shadow: -3px -3px 7px #3d3d3d, 3px 3px 5px #0f0f0f;
+                border-radius: 5px;
+                padding: 15px 30px;
+                font-size: 1.8rem;
+                cursor: pointer;
+                transition: all 0.5s ease;
+
+                &:hover{
+                    background: #3d3d3d;
+                    color: rgba($color: #fff, $alpha: 1);
+                    box-shadow: -3px -3px 7px #3d3d3d, 3px 3px 5px #0f0f0f;
+                }
+            }
+        }
+    }
+}
