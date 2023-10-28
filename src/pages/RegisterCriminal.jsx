@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { getContract } from "../ApiFeature";
+import { getContract, uploadImageToIPFS } from "../ApiFeature";
 
 const RegisterCriminal = () => {
   const [inputs, setInputs] = useState({
@@ -16,15 +16,24 @@ const RegisterCriminal = () => {
     });
   };
 
-  const handleMugshotsChange = (event) => {
-    const { value } = event.target;
-    const mugshots = value.split(",");
-    console.log(mugshots);
+  const handleMugshotsChangeAndUpload = async (event) => {
+    const files = event.target.files;
+    const mugshotsHashes = [];
+  
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      const mugshotHash = await uploadImageToIPFS(file);
+      mugshotsHashes.push(mugshotHash);
+    }
+  
     setInputs({
       ...inputs,
-      mugshots,
+      mugshots: mugshotsHashes,
     });
   };
+  
+  console.log(inputs.mugshots);
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -61,9 +70,10 @@ const RegisterCriminal = () => {
         <label>
           Criminal Mugshots
           <input
-            type="text"
+            type="file"
             name="mugshots"
-            onChange={handleMugshotsChange}
+            multiple
+            onChange={handleMugshotsChangeAndUpload}
             required
           />
         </label>
