@@ -183,6 +183,12 @@
       text-shadow: 0px 0px 5px var(--tertiary-color);
     }
 
+    img{
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+    }
+
     span {
       display: flex;
       flex-direction: column;

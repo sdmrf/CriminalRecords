@@ -1,8 +1,35 @@
 import { ethers } from "ethers";
 import { abi } from "../artifacts/contracts/CriminalRecords.sol/CriminalRecords.json";
+import { create } from "ipfs-http-client";
 
 // Variables
+const apiKey = import.meta.env.VITE_API_KEY;
+const apiKeySecret = import.meta.env.VITE_API_KEY_SECRET;
 const address = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
+
+
+// IPFS
+const authorization = "Basic " + btoa(apiKey + ":" + apiKeySecret);
+const ipfs = create({
+  url: "https://ipfs.infura.io:5001/api/v0",
+  headers: {
+    authorization,
+  },
+});
+
+console.log(ipfs);
+
+// Function to upload an image to IPFS
+const uploadImageToIPFS = async (file) => {
+    try {
+        const result = await ipfs.add(file);
+        return result.path;
+    } catch (error) {
+        console.error('Error uploading to IPFS:', error);
+        throw error;
+    }
+};
+
 
 // Getting the provider from metamask (connects to the blockchain)
 const getProvider = () => {
@@ -44,4 +71,4 @@ const getCurrentBlockNumber = async () => {
     return blockNumber;
 }
 
-export {getSigner, getContract}
+export {getSigner, getContract, getCurrentBlockNumber, uploadImageToIPFS}
