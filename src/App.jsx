@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { getSigner } from "./ApiFeature";
 
-import RegisterCriminal from "./pages/RegisterCriminal";
-import ViewCriminal from "./pages/ViewCriminal";
+import RegisterCriminal from "./pages/Register Criminal/RegisterCriminal";
+import ViewCriminal from "./pages/View Criminal/ViewCriminal";
 
 import "./App.scss";
 

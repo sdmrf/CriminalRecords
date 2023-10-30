@@ -1,0 +1,291 @@
+.ViewCriminal {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background-color: #080710;
+  overflow: hidden;
+  color: rgba($color: #ffffff, $alpha: 0.8);
+  text-shadow: 0 0 40px rgba(8,7,16,0.6);
+
+  font-size: 1.2rem;
+
+
+  .Shape {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background-color: #fff;
+    position: relative;
+}
+
+.Shape.First {
+    position: absolute;
+    left: 10%;
+    top: -10%;
+    background: linear-gradient(90deg, rgba(120, 20, 87, 0.49) 2.60%, #FF3DA9 100%);
+    box-shadow: 0px 0px 1.6799999475479126px 0px #D91B80, 0px 0px 3.359999895095825px 0px #D91B80, 0px 0px 11.760000228881836px 0px #D91B80, 0px 0px 23.520000457763672px 0px #D91B80, 0px 0px 40.31999969482422px 0px #D91B80, 0px 0px 70.55999755859375px 0px #D91B80;
+}
+
+.Shape.Second {
+    position: absolute;
+    right: 5%;
+    top: 30%;
+    background: linear-gradient(68deg, rgba(55, 78, 198, 0.85) 0%, rgba(132, 167, 220, 0.77) 53.13%, rgba(11, 35, 121, 0.85) 100%);
+    box-shadow: 0px 0px 1.6799999475479126px 0px #AE97DD, 0px 0px 3.359999895095825px 0px #AE97DD, 0px 0px 11.760000228881836px 0px #AE97DD, 0px 0px 23.520000457763672px 0px #AE97DD, 0px 0px 40.31999969482422px 0px #AE97DD, 0px 0px 70.55999755859375px 0px #AE97DD;
+}
+
+.Shape.Third {
+    position: absolute;
+    bottom: -10%;
+    left: 10%;
+    background: linear-gradient(68deg, #B0C7E8 0%, rgba(160, 132, 220, 0.91) 53.13%, rgba(111, 99, 193, 0.98) 84.90%, #645CBB 100%);
+    box-shadow: 0px 0px 1.6799999475479126px 0px #AE97DD, 0px 0px 3.359999895095825px 0px #AE97DD, 0px 0px 11.760000228881836px 0px #AE97DD, 0px 0px 23.520000457763672px 0px #AE97DD, 0px 0px 40.31999969482422px 0px #AE97DD, 0px 0px 70.55999755859375px 0px #AE97DD;
+}
+
+  .Container {
+    width: 65%;
+    height: 65%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .LeftCard {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      width: 50%;
+      border-radius: 25px;
+      background-color: rgba(255,255,255,0.13);
+      border-radius: 10px;
+      backdrop-filter: blur(10px);
+      border: 2px solid rgba(255,255,255,0.1);
+      box-shadow: 0 0 40px rgba(8,7,16,0.6);
+      box-shadow: inset -3px -3px 7px rgba(255,255,255,0.05), inset 3px 3px 5px rgba(0,0,0,0.5);
+
+      .Top {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        img {
+          height: 175px;
+          width: 175px;
+          border-radius: 50%;
+          object-fit: cover;
+          border: 2px solid rgba(255,255,255,0.1);
+          box-shadow: 0 0 40px rgba(8,7,16,0.6);
+          box-shadow: inset -3px -3px 7px rgba(255,255,255,0.05), inset 3px 3px 5px rgba(0,0,0,0.5);
+        }
+      }
+
+      .Bottom {
+        flex: 2;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .Details {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          padding: 20px;
+          gap: 20px;
+          background-color: rgba(255,255,255,0.13);
+          border-radius: 10px;
+          backdrop-filter: blur(10px);
+          border: 2px solid rgba(255,255,255,0.1);
+          box-shadow: 0 0 40px rgba(8,7,16,0.6);
+          box-shadow: inset -3px -3px 7px rgba(255,255,255,0.05), inset 3px 3px 5px rgba(0,0,0,0.5);
+          
+        }
+      }
+    }
+
+    .RightCard {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      height: 95%;
+      width: 50%;
+      margin-left: -20px;
+      border-radius: 25px;
+      background-color: rgba(255,255,255,0.13);
+      border-radius: 10px;
+      backdrop-filter: blur(10px);
+      border: 2px solid rgba(255,255,255,0.1);
+      box-shadow: 0 0 40px rgba(8,7,16,0.6);
+      box-shadow: inset -3px -3px 7px rgba(255,255,255,0.05), inset 3px 3px 5px rgba(0,0,0,0.5);
+
+
+      .Top {
+        flex: 1.75;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;        
+
+        .Slider {
+          height: 200px;
+          width: 100%;
+          border-radius: 5px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 20px;
+
+          .ImgContainer {
+            height: 100%;
+            min-width: 100%;
+            border-radius: 5px;
+            overflow: hidden;
+
+            .ImgWrapper {
+              height: 100%;
+              width: 100%;
+              display: flex;
+              transition: transform 0.75s ease-in-out;
+
+              .Slide {
+                min-width: 100%;
+                height: 100%;
+                img {
+
+                  width: 100%;
+                  height: 100%;
+                  object-fit: cover;
+                }
+              }
+            }
+          }
+
+          .arrow {
+            width: 50px;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(0, 0, 0, 0.5));
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(10px);
+            color: rgba($color: #ffffff, $alpha: 0.75);
+            box-shadow: 0 0 40px rgba(8,7,16,0.6);
+            box-shadow: inset -3px -3px 7px rgba(255,255,255,0.05), inset 3px 3px 5px rgba(0,0,0,0.5);
+            z-index: 99;
+            cursor: pointer;
+
+            &.left {
+              position: relative;
+              border-radius: 5px 0px 0px 5px;
+              left: 50px;
+            }
+
+            &.right {
+              position: relative;
+              border-radius: 0px 5px 5px 0px;
+              right: 50px;
+            }
+          }
+        }
+      }
+
+      .Bottom {
+        flex: 2;
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+        gap: 20px;
+
+        .Details{
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          padding: 20px;
+          gap: 20px;
+          background-color: rgba(255,255,255,0.13);
+          border-radius: 10px;
+          backdrop-filter: blur(10px);
+          border: 2px solid rgba(255,255,255,0.1);
+          box-shadow: 0 0 40px rgba(8,7,16,0.6);
+          box-shadow: inset -3px -3px 7px rgba(255,255,255,0.05), inset 3px 3px 5px rgba(0,0,0,0.5);
+
+          .RelativeDetails {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+          }
+        }
+
+      }
+    }
+  }
+}
+
+.EnterCriminalId{
+  display: flex;
+  width: 100%;
+  height: 100%;
+
+  align-items: center;
+  justify-content: center;
+
+  form{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    max-width: 500px;
+    padding: 20px;
+    background-color: rgba(255,255,255,0.13);
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255,255,255,0.1);
+    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    box-shadow: inset -3px -3px 7px rgba(255,255,255,0.05), inset 3px 3px 5px rgba(0,0,0,0.5);
+
+    label{
+      font-size: 1.8rem;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 5px;
+
+      input{
+        width: 100%;
+        height: 40px;
+        border-radius: 5px;
+        border: 1px solid rgba(255,255,255,0.1);
+        background-color: rgba(255,255,255,0.1);
+        backdrop-filter: blur(10px);
+        padding: 0 10px;
+        color: rgba(255,255,255,0.8);
+        font-size: 1.2rem;
+        font-weight: 500;
+        box-shadow: 0 0 40px rgba(8,7,16,0.6);
+        box-shadow: inset -3px -3px 7px rgba(255,255,255,0.05), inset 3px 3px 5px rgba(0,0,0,0.5);
+      }
+
+    }
+
+    button{
+      width: 100%;
+      height: 40px;
+      border-radius: 5px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background-color: rgba(255,255,255,0.1);
+      backdrop-filter: blur(10px);
+      padding: 0 10px;
+      color: rgba(255,255,255,0.8);
+      font-size: 1.2rem;
+      font-weight: 500;
+      box-shadow: 0 0 40px rgba(8,7,16,0.6);
+      box-shadow:  -3px -3px 7px rgba(255,255,255,0.05),  3px 3px 5px rgba(0,0,0,0.5);
+      cursor: pointer;
+    }
+
+  }
+
+}
