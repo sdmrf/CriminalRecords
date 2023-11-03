@@ -17,7 +17,6 @@ const ipfs = create({
   },
 });
 
-console.log(ipfs);
 
 // Function to upload an image to IPFS
 const uploadImageToIPFS = async (file) => {

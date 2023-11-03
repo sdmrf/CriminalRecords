@@ -10,9 +10,13 @@ const ViewCriminal = () => {
     setCriminalId(value);
   };
 
+  console.log(criminalId);
+  console.log(criminal);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const contract = await getContract();
+    console.log(contract);
     const criminal = await contract.viewCriminal(criminalId);
     setCriminal(criminal);
   };
@@ -40,7 +44,7 @@ const ViewCriminal = () => {
         </div>
         <div className="PersonalInfo">
           <h1>Personal Info</h1>
-          <span>{criminal ? criminal[1] : "1"}</span>
+          <span>{criminal ? criminal[0] : "1"}</span>
         </div>
         <div className="Mugshots">
           <h1>Mugshots</h1>
