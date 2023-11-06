@@ -32,6 +32,7 @@ const Step3 = ({ formData, prevStep, setFormData, handleFormSubmit }) => {
     setFormData({
       ...formData,
       mugshots: mugshotsHashes,
+      images: files,
     });
   };
 

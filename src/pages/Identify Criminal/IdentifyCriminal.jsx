@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import * as faceapi from "face-api.js";
-import { useState, useEffect, useRef } from "react";
-import { getContract, uploadImageToIPFS } from "../../ApiFeature";
+import { 
+  generateLabeledFaceDescriptors,
+  getCriminalIds,
+  loadModels,
+  startVideo,
+  } from "../../ApiFeature";
 import "./IdentifyCriminal.scss";
 
 const IdentifyCriminal = () => {
@@ -9,7 +13,6 @@ const IdentifyCriminal = () => {
   const [captureVideo, setCaptureVideo] = useState(null);
   const [labeledFaceDescriptors, setLabeledFaceDescriptors] = useState([]);
   const [criminalIdx, setCriminalIdx] = useState("");
-  const [isCriminalSet, setIsCrminalSet] = useState(false);
 
   const videoRef = useRef();
   const videoHeight = 480;
@@ -17,41 +20,10 @@ const IdentifyCriminal = () => {
   const canvasRef = useRef();
 
   useEffect(() => {
-    const loadModels = async () => {
-      await Promise.all([
-        faceapi.nets.ssdMobilenetv1.loadFromUri("/models"),
-        faceapi.nets.tinyFaceDetector.loadFromUri("/models"),
-        faceapi.nets.faceLandmark68Net.loadFromUri("/models"),
-        faceapi.nets.faceRecognitionNet.loadFromUri("/models"),
-      ]);
-      setModelsLoaded(true);
-    };
-
-    loadModels();
+    loadModels().then(() => setModelsLoaded(true));
   }, []);
 
-  const startVideo = () => {
-    setCaptureVideo(true);
-    navigator.mediaDevices
-      .getUserMedia({ video: { width: 300 } })
-      .then((stream) => {
-        let video = videoRef.current;
-        video.srcObject = stream;
-        video.play();
-      })
-      .catch((err) => {
-        console.error("error:", err);
-      });
-  };
-
-  //GET CRIMINAL IDS
-  const getCriminalIds = async () => {
-    const contract = await getContract();
-    const ids = await contract.getCriminalIds();
-    return ids;
-  };
-
-  const HandleFaceRecognition = () => {
+  const handleFaceRecognition = async () => {
     const video = videoRef.current;
     video.addEventListener("canplay", async () => {
       const canvas = canvasRef.current;
@@ -60,36 +32,9 @@ const IdentifyCriminal = () => {
         height: videoHeight,
       };
       if (captureVideo && modelsLoaded) {
-        const CriminalIds = await getCriminalIds();
-        console.log(CriminalIds);
-        const labeledFaceDescriptors = [];
-        await Promise.all(
-          CriminalIds.map(async (criminalId) => {
-            const contract = await getContract();
-            const criminal = await contract.viewCriminal(criminalId);
-            const mugshots = criminal[2];
+        const criminalIds = await getCriminalIds();
+        const labeledFaceDescriptors = await generateLabeledFaceDescriptors(criminalIds);
 
-            for (let i = 0; i < mugshots.length; i++) {
-              const img = await faceapi.fetchImage(
-                `https://ipfs.io/ipfs/${mugshots[i]}`
-              );
-
-              console.log(img);
-
-              const faceDetection = await faceapi
-                .detectSingleFace(img)
-                .withFaceLandmarks()
-                .withFaceDescriptor();
-
-                if (faceDetection) {
-                  const faceDescriptors = [faceDetection.descriptor];
-                  labeledFaceDescriptors.push(
-                    new faceapi.LabeledFaceDescriptors(criminalId, faceDescriptors)
-                  );
-                }
-            }
-          })
-        );
         faceapi.matchDimensions(canvasRef.current, displaySize);
 
         setInterval(async () => {
@@ -97,26 +42,20 @@ const IdentifyCriminal = () => {
             .detectAllFaces(video, new faceapi.TinyFaceDetectorOptions())
             .withFaceLandmarks()
             .withFaceDescriptors();
-          const resizedDetections = faceapi.resizeResults(
-            detections,
-            displaySize
-          );
+          const resizedDetections = faceapi.resizeResults(detections, displaySize);
           const ctx = canvas.getContext("2d");
           ctx.clearRect(0, 0, canvas.width, canvas.height);
           faceapi.draw.drawFaceLandmarks(canvasRef.current, resizedDetections);
 
           const results = resizedDetections.map((d) => {
-            const faceMatcher = new faceapi.FaceMatcher(
-              labeledFaceDescriptors,
-              0.5
-            );
+            const faceMatcher = new faceapi.FaceMatcher(labeledFaceDescriptors, 0.5);
             return faceMatcher.findBestMatch(d.descriptor);
           });
 
-          results.forEach((criminalId, i) => {
+          results.forEach((result, i) => {
             const box = resizedDetections[i].detection.box;
             const drawBox = new faceapi.draw.DrawBox(box, {
-              label: criminalId.toString(),
+              label: result.toString(),
             });
             drawBox.draw(canvasRef.current, displaySize);
           });
@@ -124,9 +63,11 @@ const IdentifyCriminal = () => {
       }
     });
   };
+
   const closeWebcam = () => {
-    videoRef.current.pause();
-    videoRef.current.srcObject.getTracks()[0].stop();
+    const video = videoRef.current;
+    video.pause();
+    video.srcObject.getTracks()[0].stop();
     setCaptureVideo(false);
   };
 
@@ -150,7 +91,7 @@ const IdentifyCriminal = () => {
           </button>
         ) : (
           <button
-            onClick={startVideo}
+            onClick={() => startVideo(videoRef)}
             style={{
               cursor: "pointer",
               backgroundColor: "#2B2B2B",
@@ -180,7 +121,7 @@ const IdentifyCriminal = () => {
                   ref={videoRef}
                   height={videoHeight}
                   width={videoWidth}
-                  onPlay={HandleFaceRecognition}
+                  onPlay={handleFaceRecognition}
                   style={{ borderRadius: "10px" }}
                 />
                 <canvas ref={canvasRef} style={{ position: "absolute" }} />

@@ -12,6 +12,8 @@ contract CriminalRecords {
         string mobileNumber;
         string aadharNumber;
         string addressx;
+        string relativeName;
+        string relativeMobileNumber;
     }
 
     struct Criminal {
@@ -39,6 +41,8 @@ contract CriminalRecords {
         string memory _mobileNumber,
         string memory _aadharNumber,
         string memory _addressx,
+        string memory _relativeName,
+        string memory _relativeMobileNumber,
         string[] memory _mugshots
     ) public onlyOwner {
         require(bytes(criminalRecords[_criminalId].criminalId).length == 0, "Criminal is already registered");
@@ -49,8 +53,11 @@ contract CriminalRecords {
             dob: _dob,
             mobileNumber: _mobileNumber,
             aadharNumber: _aadharNumber,
-            addressx: _addressx
+            addressx: _addressx,
+            relativeName: _relativeName,
+            relativeMobileNumber: _relativeMobileNumber
         });
+
         
         criminalRecords[_criminalId] = Criminal(_criminalId, personalInfo, _mugshots);
         criminalIds.push(_criminalId);

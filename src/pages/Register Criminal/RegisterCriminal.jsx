@@ -8,7 +8,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import BadgeOutlinedIcon from "@mui/icons-material/BadgeOutlined";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
-import { getContract, uploadImageToIPFS } from "../../ApiFeature";
+import { getContract } from "../../ApiFeature";
 
 
 const RegisterCriminal = () => {
@@ -37,7 +37,9 @@ const RegisterCriminal = () => {
     city: "",
     /* Step 3 */
     mugshots: [],
+    images: null,
   });
+
 
   console.log(formData.criminalId);
   const handleFormSubmit = async (e) => {
